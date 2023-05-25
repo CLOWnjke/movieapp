@@ -132,6 +132,9 @@ export default class App extends React.Component {
     if (activeKey === '1') {
       console.log(this.state.sessionId);
       console.log('Tab 1', activeKey);
+      if(this.state.searchValue) {
+        return this.updateMovies(this.state.searchValue,this.state.page);
+      }
       return this.popularFilms(this.state.page);
     }
     if (activeKey === '2') {
