@@ -1,0 +1,89 @@
+.movies > span {
+  display: flex;
+  row-gap: 36px;
+  column-gap: 36px;
+  margin-left: 36px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+.movie {
+  display: flex;
+  width: 455px;
+  height: 280px;
+  box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 1);
+}
+
+.info {
+  height: 250px;
+}
+
+.img {
+  height: 100%;
+  width: 185px;
+  background-size: contain;
+}
+
+.ant-image {
+  width: 185px;
+}
+
+.ant-image-img {
+  height: 100% !important;
+}
+
+.movie-rating {
+  display: flex;
+}
+
+.rating {
+  align-self: center;
+  margin-left: auto;
+  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.rating-count {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  vertical-align: sub;
+}
+
+.movie-info {
+  width: 266px;
+  margin-left: 8px;
+}
+
+.movie--create-date {
+  color: gray;
+}
+
+.genres {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.genres li {
+  background-color: lightgrey;
+  border: 1px solid gray;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+p {
+  width: 250px;
+  margin-bottom: 0;
+  overflow: hidden;
+}
+
+h1 {
+  height: 20px;
+  overflow: hidden;
+}
