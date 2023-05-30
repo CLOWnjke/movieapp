@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Online } from 'react-detect-offline';
 
 import LoaderSpin from '../Spin/Spin';
 import MovieCard from '../Main-movie-card/Main-movie-card';
 import { ErrorIndicator, EmptyIndicator } from '../Indicators/errorIndicator';
 import OfflineIndicator from '../Offline/offline';
 
-function Main({ data, loading, error, sessionId, genres }) {
+function Main({ data, loading, error, sessionId, genres, online }) {
   const elements = data.map((item) => (
     <MovieCard
       key={item.id}
@@ -25,19 +24,16 @@ function Main({ data, loading, error, sessionId, genres }) {
     />
   ));
 
-  const spiner = loading ? <LoaderSpin /> : null;
-  const err = error ? <ErrorIndicator /> : null;
-  const empty = elements.length === 0 && !loading ? <EmptyIndicator /> : null;
+
 
   return (
     <section className="movies">
-      <Online>
+      {online ? <>
         {elements}
-        {spiner}
-        {err}
-        {empty}
-      </Online>
-      <OfflineIndicator />
+        {loading ? <LoaderSpin /> : null}
+        {error ? <ErrorIndicator /> : null}
+        {elements.length === 0 && !loading ? <EmptyIndicator /> : null}
+      </> : <OfflineIndicator />}
     </section>
   );
 }

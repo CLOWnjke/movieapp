@@ -11,6 +11,7 @@ import './app.css';
 export default class App extends React.Component {
   state = {
     data: [],
+    ratedData: [],
     genres: [],
     loading: true,
     error: false,
@@ -19,11 +20,14 @@ export default class App extends React.Component {
     totalPages: 50,
     sessionId: '',
     tab: 1,
+    online: true,
   };
 
   apiService = new ApiService();
 
   componentDidMount() {
+    window.addEventListener('online', this.checkOnlineStatus);
+    window.addEventListener('offline', this.checkOfflineStatus);
     this.createSessionId();
     this.setGenresList();
     this.popularFilms(this.state.page);
@@ -128,23 +132,36 @@ export default class App extends React.Component {
     });
   }
 
+  checkOnlineStatus = () => {
+    this.setState({
+      online: true
+    });
+  };
+
+  checkOfflineStatus = () => {
+    return this.setState({
+      online: false
+    });
+  };
+
   onChangeTab(activeKey) {
     if (activeKey === '1') {
       console.log(this.state.sessionId);
       console.log('Tab 1', activeKey);
       if(this.state.searchValue) {
-        return this.updateMovies(this.state.searchValue,this.state.page);
+        return this.state.data;
+        // this.updateMovies(this.state.searchValue,this.state.page);
       }
       return this.popularFilms(this.state.page);
     }
     if (activeKey === '2') {
-      this.setState({
-        data: [],
-      });
+      // this.setState({
+      //   data: [],
+      // });
       this.apiService.getRatedMovies(this.state.sessionId).then((res) => {
         console.log(res);
         this.setState({
-          data: res.results,
+          ratedData: res.results,
           loading: false,
         });
       });
@@ -165,6 +182,7 @@ export default class App extends React.Component {
               error={this.state.error}
               sessionId={this.state.sessionId}
               genres={this.state.genres}
+              online={this.state.online}
             />
             <PagePagination changePage={this.changePage} totalPages={this.state.totalPages} page={this.state.page} />
           </>
@@ -176,11 +194,12 @@ export default class App extends React.Component {
         children: (
           <>
             <Main
-              data={this.state.data}
+              data={this.state.ratedData}
               loading={this.state.loading}
               error={this.state.error}
               sessionId={this.state.sessionId}
               genres={this.state.genres}
+              online={this.state.online}
             />
           </>
         ),

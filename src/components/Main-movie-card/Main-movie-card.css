@@ -1,4 +1,4 @@
-.movies > span {
+.movies {
   display: flex;
   row-gap: 36px;
   column-gap: 36px;
